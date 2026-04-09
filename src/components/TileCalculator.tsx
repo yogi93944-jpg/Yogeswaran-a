@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RoomDimensions, TileConfig, CalculationResult, TilePattern, AISuggestion } from '../types';
-import { Calculator, Ruler, DollarSign, Layers, Sparkles, RefreshCw } from 'lucide-react';
+import { Calculator, Ruler, IndianRupee, Layers, Sparkles, RefreshCw } from 'lucide-react';
 import { getTileSuggestions } from '../lib/gemini';
 import { cn } from '../lib/utils';
 
@@ -300,7 +300,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ config, onChange
               </div>
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-500 uppercase">Floor Tile Cost ($)</label>
+              <label className="text-xs font-bold text-slate-500 uppercase">Floor Tile Cost (₹)</label>
               <input 
                 type="number" 
                 name="costPerTile"
@@ -335,7 +335,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ config, onChange
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase">Wall Tile Cost ($)</label>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Wall Tile Cost (₹)</label>
                   <input 
                     type="number" 
                     name="wallTileCost"
@@ -552,9 +552,12 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ config, onChange
           <div className="flex items-center justify-between border-b border-slate-800 pb-4">
             <h3 className="text-xl font-bold tracking-tight">Calculation Output</h3>
             <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400">
+                <IndianRupee className="w-6 h-6" />
+              </div>
               <div className="text-right">
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Total Project Cost</p>
-                <p className="text-3xl font-black text-green-400">${results.totalCost.toLocaleString()}</p>
+                <p className="text-3xl font-black text-green-400">₹{results.totalCost.toLocaleString()}</p>
               </div>
             </div>
           </div>
@@ -585,7 +588,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ config, onChange
                 </div>
                 <div className="bg-slate-800/50 p-3 rounded-xl col-span-2">
                   <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mb-1">Floor Tile Cost</p>
-                  <p className="text-xl font-bold text-green-400">${(results.totalTiles * results.oneTileCost).toLocaleString()}</p>
+                  <p className="text-xl font-bold text-green-400">₹{(results.totalTiles * results.oneTileCost).toLocaleString()}</p>
                 </div>
               </div>
             </div>
@@ -616,7 +619,7 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ config, onChange
                   </div>
                   <div className="bg-slate-800/50 p-3 rounded-xl col-span-2">
                     <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mb-1">Wall Tile Cost</p>
-                    <p className="text-xl font-bold text-green-400">${(results.totalWallTiles * results.oneWallTileCost).toLocaleString()}</p>
+                    <p className="text-xl font-bold text-green-400">₹{(results.totalWallTiles * results.oneWallTileCost).toLocaleString()}</p>
                   </div>
                 </div>
               </div>
@@ -630,12 +633,12 @@ export const TileCalculator: React.FC<TileCalculatorProps> = ({ config, onChange
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-800">
             <div className="space-y-1">
               <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">One Tile Cost (Floor)</p>
-              <p className="text-xl font-bold">${results.oneTileCost}</p>
+              <p className="text-xl font-bold">₹{results.oneTileCost}</p>
             </div>
             {config.includeWallTiles && (
               <div className="space-y-1">
                 <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">One Tile Cost (Wall)</p>
-                <p className="text-xl font-bold">${results.oneWallTileCost}</p>
+                <p className="text-xl font-bold">₹{results.oneWallTileCost}</p>
               </div>
             )}
             <div className="space-y-1">
